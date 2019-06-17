@@ -1,0 +1,181 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; }
+  
+  div.about {
+    display: none;
+  }
+
+   /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  } 
+  
+  body {
+    background: #808080;
+    font-family: Arial, sans-serif; }
+  
+  div#app {
+    height: 100%;
+    position: relative; }
+  
+  header.main {
+    height: 50px;
+    background: #d9d5cf;
+    position: relative;
+    border-bottom: 1px solid #8b8275;
+    font-smooth: never;
+    -webkit-font-smoothing: none; }
+    header.main h1.title {
+      z-index: 900;
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+      color: white;
+      position: absolute;
+      top: 2px;
+      left: 6px;
+      right: 4px;
+      height: 23px;
+      line-height: 23px;
+      font-weight: 600; }
+    header.main ul.menus {
+      position: absolute;
+      top: 25px;
+      left: 0;
+      right: 0;
+      height: 25px;
+      margin: 0;
+      padding: 0;
+      padding-left: 5px; }
+      header.main ul.menus li {
+        display: inline-block; }
+        header.main ul.menus li a {
+          font-size: 13px;
+          text-decoration: none;
+          padding-left: 5px;
+          padding-right: 5px;
+          height: 100%;
+          color: black;
+          line-height: 25px;
+          position: relative; }
+          header.main ul.menus li a:after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            bottom: 0;
+            height: 1px;
+            width: 7px;
+            background: black; }
+    header.main:after {
+      z-index: 800;
+      content: "";
+      top: 2px;
+      right: 2px;
+      left: 2px;
+      height: 23px;
+      position: absolute;
+      background: linear-gradient(to right, #0b2568, #bbd7f5); }
+  
+  section.main {
+    width: 60px;
+    background: #d9d5cf;
+    position: absolute;
+    top: 51px;
+    left: 0;
+    bottom: 71px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #8b8275; }
+    section.main div.controls {
+      position: absolute;
+      background-image: url(../images/panel.png);
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      height: 100%; }
+  
+  div#sketch {
+    position: absolute;
+    left: 64px;
+    top: 54px;
+    width: 600px;
+    height: 400px;
+    background: white; }
+    div#sketch canvas#paint {
+      width: 100%;
+      height: 100%;
+      cursor: pointer; }
+  
+  footer.main {
+    border-top: 1px solid #ffffff;
+    height: 70px;
+    background: #d9d5cf;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0; }
+    footer.main div.colors {
+      position: absolute;
+      top: 4px;
+      background-image: url(../images/colors.png);
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      left: 0;
+      right: 0;
+      height: 40px;
+      padding-left: 43px;
+      padding-top: 2px;
+      width: 300px; }
+      footer.main div.colors div#current {
+        position: absolute;
+        left: 8px;
+        top: 9px;
+        background: black;
+        width: 15px;
+        height: 15px; }
+      footer.main div.colors div.color {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        float: left;
+        cursor: pointer; }
+  
+  /*# sourceMappingURL=app.css.map */
+  

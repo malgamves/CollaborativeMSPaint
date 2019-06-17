@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <title>_Beep Boop Beep_*printing.....*</title>
+    <meta name="description" content="" />
+    <meta name="author" content="Daniel Madalitso Phiri" />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <header class="main">
+        <h1 class="title">Daniel Madalitso Phiri.jpg - Developer Advocate</h1>
+        <ul class="menus">
+          <li><a href="#" onclick="window.download()">Save</a></li>
+          <li>
+            <a href="https://github.com/malgamves" target="_blank">GitHub</a>
+          </li>
+          <li>
+            <a href="https://twitter.com/malgamves" target="_blank">Twitter</a>
+          </li>
+          <li>
+            <a href="mailto:malgamves@gmail.com" target="_blank">Email</a>
+          </li>
+          <li><button id="openModal">Chat</button></li>
+        </ul>
+      </header>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Type your message and Press Enter.</p>
+          <input id="input" placeholder="Your Message Here" />
+          <p>Forum:</p>
+          <p></p>
+          <div id="box"></div>
+        </div>
+      </div>
+
+      <section class="main">
+        <div class="controls"></div>
+      </section>
+
+      <div id="sketch">
+        <canvas id="paint"></canvas>
+      </div>
+
+      <footer class="main">
+        <div class="colors">
+          <div id="current"></div>
+          <div class="color" data-color="000000"></div>
+          <div class="color" data-color="8b8275"></div>
+          <div class="color" data-color="8c040a"></div>
+          <div class="color" data-color="8b8218"></div>
+          <div class="color" data-color="108213"></div>
+          <div class="color" data-color="118275"></div>
+          <div class="color" data-color="020a75"></div>
+          <div class="color" data-color="8c0d75"></div>
+          <div class="color" data-color="8b8235"></div>
+          <div class="color" data-color="044236"></div>
+          <div class="color" data-color="1682fc"></div>
+          <div class="color" data-color="064276"></div>
+          <div class="color" data-color="8c25fc"></div>
+          <div class="color" data-color="8b420e"></div>
+          <div class="color" data-color="ffffff"></div>
+          <div class="color" data-color="c8c2ba"></div>
+          <div class="color" data-color="fd0d1b"></div>
+          <div class="color" data-color="fffe38"></div>
+          <div class="color" data-color="29fe2f"></div>
+          <div class="color" data-color="2dffff"></div>
+          <div class="color" data-color="0b24fc"></div>
+          <div class="color" data-color="fd29fd"></div>
+          <div class="color" data-color="fffe75"></div>
+          <div class="color" data-color="2afe76"></div>
+          <div class="color" data-color="8bffff"></div>
+          <div class="color" data-color="8c83fd"></div>
+          <div class="color" data-color="fd1476"></div>
+          <div class="color" data-color="fe8235"></div>
+        </div>
+        <h1 class="menu" style="text-align:right">
+          Painting with <span id="users">0</span> other NeRdz
+        </h1>
+      </footer>
+    </div>
+    <script>
+      // Get the modal
+      var modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      var btn = document.getElementById("openModal");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks on the button, open the modal
+      btn.onclick = function() {
+        modal.style.display = "block";
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
+    
+	<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.24.2.js"></script>
+		<script>(function(){
+		var pubnub = new PubNub({publishKey : '<<Secret>', subscribeKey : '<Secret>'}); // Your PubNub keys here. Get them from https://dashboard.pubnub.com.
+		var box = document.getElementById("box"), input = document.getElementById("input"), channel = 'chat';
+		pubnub.subscribe({channels: [channel]}); // Subscribe to a channel.
+		pubnub.addListener({message: function(m) {
+			 box.innerHTML = (''+m.message).replace( /[<>]/g, '' ) + '<br> <hr>' + box.innerHTML; // Add message to page.
+		  }});
+		input.addEventListener('keypress', function (e) {
+			(e.keyCode || e.charCode) === 13 && pubnub.publish({ // Publish new message when enter is pressed. 
+				channel : channel, message : input.value, x : (input.value='')
+			});
+		});
+	  })();</script>
+	  <script src="scripts/app.js"></script>
+  </body>
+</html>
