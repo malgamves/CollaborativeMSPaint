@@ -4,6 +4,7 @@
     <meta name="description" content="" />
 	<meta name="author" content="Daniel Madalitso Phiri" />
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" type="text/css" href="styles/clippy.css" media="all">
   </head>
 
   <body>
@@ -126,6 +127,20 @@
 			});
 		});
 	  })();</script>
-	  <script src="scripts/app.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!-- Clippy.js -->
+<script src="scripts/clippy.min.js"></script>
+
+<!-- Init script -->
+<script type="text/javascript">
+    clippy.load('Clippy', function(agent) {
+        // Do anything with the loaded agent
+        agent.show();
+        agent.animate();
+        agent.speak("I bet you didn't notice me, did you?");
+        agent.animate();
+    });
+</script>
   </body>
 </html>
