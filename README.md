@@ -41,6 +41,7 @@ To talk about your latest creation, it has an inbuilt chat to check all the nice
 
 Feel free to add yours in an [issue](https://github.com/malgamves/CollaborativeMSPaint/issues)
 
+# Blog post and demo video coming soon 🔥🔥🔥🔥
 
 
   
