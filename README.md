@@ -2,7 +2,7 @@
 A Collaborative Microsoft Paint Tribute/Clone website built with PubNub + a bonus chatroom
 ## [Check out the demo here](https://ms-paint-collab.netlify.com/)
 
-The Website uses:
+The website uses:
 
 [PubNub Presense](https://www.pubnub.com/products/presence/) To keep track of the number of "Nerdz drawing wuth you" 
 
