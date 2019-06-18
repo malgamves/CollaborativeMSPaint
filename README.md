@@ -1,6 +1,6 @@
 # CollaborativeMSPaint
 A Collaborative Microsoft Paint Tribute/Clone website built with PubNub + a bonus chatroom
-![Cover Image](https://i.imgur.com/oYTdKnC.png)
+![Cover Image](https://i.imgur.com/DIdbVu6.png)
 ## [Check out the demo here](https://ms-paint-collab.netlify.com/)
 
 The website uses:
