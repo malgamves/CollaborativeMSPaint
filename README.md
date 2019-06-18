@@ -17,7 +17,7 @@ Let's get into it.
 - Clone the repository.
 - Sign Up for [PubNub](https://www.pubnub.com/) and get your API keys in your Dashboard
 - Replace the text `<secret>` in `index.html` and `app.js` with your API Keys
-- Get [Node and Npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) running and install `http-server` by running `npm -g i http-server` 
+- Get [node and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) running and install `http-server` by running `npm -g i http-server` 
 - Run `http-server` in your terminal
 - Get your art on...
 
