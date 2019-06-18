@@ -1,31 +1,43 @@
 # CollaborativeMSPaint
-A Collaborative Microsoft Paint Tribute/Clone App Built using the JAM Stack and PubNub + a bonus chat
-##[Check out the demo here]
+A Collaborative Microsoft Paint Tribute/Clone website built with PubNub + featuring a bonus chatroom
+## [Check out the demo here](https://ms-paint-collab.netlify.com/)
 
-The Website uses
-[PubNub Presense]() - To keep track of the number of "Nerdz drawing wuth you" + [PubNub Realtime API](https://www.chartjs.org/) on the frontend 🖥️
+The Website uses:
+[PubNub Presense](https://www.pubnub.com/products/presence/) - To keep track of the number of "Nerdz drawing wuth you" 
+[PubNub Realtime API](https://www.chartjs.org/) which powers that realtime chat and collaborative canvas i.e MS Paint. 
 
-😈 [Hasura](https://hasura.io/) + [Apollo GraphQL](https://www.apollographql.com/) in the backend ⚡
+Deployed on [Netlify](https://www.netlify.com/) 🔥
 
-🚀 Deployed on [Netlify](https://www.netlify.com/) 🔥
+![SpongeBob Meme](https://media.tenor.com/images/7b835f56d678b25c0b9132e1435b7d0b/tenor.gif)
+
+Let's get into it.
 
 ## How to Run it 
 
-- Clone the repository
-- Get Node running and install `http-server` by running `npm i http-server`
+- Clone the repository.
+- Sign Up for [PubNub](https://www.pubnub.com/) and get your API keys in your Dashboard
+- Replace the text `<secret>` in `index.html` and `app.js` with your API Keys
+- Get [Node and Npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) running and install `http-server` by running `npm -g i http-server` 
+- Run `http-server` in your terminal
+- Get your art on...
 
-## How it Works
-![](https://i.imgur.com/pgv06Zi.gif)
+## How it Works 
+The website let's us collaborate with other users to create art in this remake of the Microsoft Paint.
 
+![Collaborative Drawing](https://i.imgur.com/pgv06Zi.gif)
 
-![](https://i.imgur.com/kMO6og7.gif)
+To talk about your latest creation, it has an inbuilt chat to check all the nice things everybody has to say about your art.
+
+![Realtime Chat](https://i.imgur.com/kMO6og7.gif)
 
 ## Improvements
 
-- [] Adding Usernames for chat
-- [] Tracking
+- [ ] Adding Usernames for chat
+- [ ] Supporting touch screen input
+- [ ] Add support to store history
+- [ ] ....
 
-
+Feel free to add yours in an [issue](https://github.com/malgamves/CollaborativeMSPaint/issues)
 
 
 
