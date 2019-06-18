@@ -2,7 +2,7 @@
   <head>
     <title>_Beep Boop Beep_*printing.....*</title>
     <meta name="description" content="" />
-    <meta name="author" content="Daniel Madalitso Phiri" />
+	<meta name="author" content="Daniel Madalitso Phiri" />
     <link rel="stylesheet" href="styles/main.css" />
   </head>
 
@@ -21,7 +21,7 @@
           <li>
             <a href="mailto:malgamves@gmail.com" target="_blank">Email</a>
           </li>
-          <li><button id="openModal">Chat</button></li>
+          <li><a href="#" id="openModal">Chat</a></li>
         </ul>
       </header>
 
@@ -114,7 +114,7 @@
 	<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
 	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.24.2.js"></script>
 		<script>(function(){
-		var pubnub = new PubNub({publishKey : '<<Secret>', subscribeKey : '<Secret>'}); // Your PubNub keys here. Get them from https://dashboard.pubnub.com.
+		var pubnub = new PubNub({publishKey : '<Secret>', subscribeKey : '<Secret>'}); // Your PubNub keys here. Get them from https://dashboard.pubnub.com.
 		var box = document.getElementById("box"), input = document.getElementById("input"), channel = 'chat';
 		pubnub.subscribe({channels: [channel]}); // Subscribe to a channel.
 		pubnub.addListener({message: function(m) {
