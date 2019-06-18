@@ -3,9 +3,9 @@ A Collaborative Microsoft Paint Tribute/Clone website built with PubNub + featur
 ## [Check out the demo here](https://ms-paint-collab.netlify.com/)
 
 The Website uses:
+
 [PubNub Presense](https://www.pubnub.com/products/presence/) - To keep track of the number of "Nerdz drawing wuth you" 
 [PubNub Realtime API](https://www.chartjs.org/) which powers that realtime chat and collaborative canvas i.e MS Paint. 
-
 Deployed on [Netlify](https://www.netlify.com/) 🔥
 
 ![SpongeBob Meme](https://media.tenor.com/images/7b835f56d678b25c0b9132e1435b7d0b/tenor.gif)
