@@ -16,7 +16,7 @@ var mspaint = {
 
     var pubnub = PUBNUB.init({
 		publish_key: 'ENTER_YOUR_PUBLISH_KEY_HERE',
-        subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
+        subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE',
       	ssl: document.location.protocol === "https:"
     });
 
