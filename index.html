@@ -2,9 +2,14 @@
   <head>
     <title>_Beep Boop Beep_*printing.....*</title>
     <meta name="description" content="" />
-	<meta name="author" content="Daniel Madalitso Phiri" />
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" type="text/css" href="styles/clippy.css" media="all">
+    <meta name="author" content="Daniel Madalitso Phiri" />
+    <link rel="stylesheet" href="src/main.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="src/clippy.css"
+      media="all"
+    />
   </head>
 
   <body>
@@ -111,36 +116,52 @@
         }
       };
     </script>
-    
-	<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
-	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.24.2.js"></script>
-		<script>(function(){
-		var pubnub = new PubNub({publishKey : '<Secret>', subscribeKey : '<Secret>'}); // Your PubNub keys here. Get them from https://dashboard.pubnub.com.
-		var box = document.getElementById("box"), input = document.getElementById("input"), channel = 'chat';
-		pubnub.subscribe({channels: [channel]}); // Subscribe to a channel.
-		pubnub.addListener({message: function(m) {
-			 box.innerHTML = (''+m.message).replace( /[<>]/g, '' ) + '<br> <hr>' + box.innerHTML; // Add message to page.
-		  }});
-		input.addEventListener('keypress', function (e) {
-			(e.keyCode || e.charCode) === 13 && pubnub.publish({ // Publish new message when enter is pressed. 
-				channel : channel, message : input.value, x : (input.value='')
-			});
-		});
-	  })();</script>
-    <script src="scripts/app.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<!-- Clippy.js -->
-<script src="scripts/clippy.min.js"></script>
 
-<!-- Init script -->
-<script type="text/javascript">
-    clippy.load('Clippy', function(agent) {
+    <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.24.2.js"></script>
+    <script>
+      (function() {
+        var pubnub = new PubNub({
+          publish_key: 'ENTER_YOUR_PUBLISH_KEY_HERE',
+          subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
+        }); // Your PubNub keys here. Get them from https://dashboard.pubnub.com.
+        var box = document.getElementById("box"),
+          input = document.getElementById("input"),
+          channel = "chat";
+        pubnub.subscribe({ channels: [channel] }); // Subscribe to a channel.
+        pubnub.addListener({
+          message: function(m) {
+            box.innerHTML =
+              ("" + m.message).replace(/[<>]/g, "") +
+              "<br> <hr>" +
+              box.innerHTML; // Add message to page.
+          }
+        });
+        input.addEventListener("keypress", function(e) {
+          (e.keyCode || e.charCode) === 13 &&
+            pubnub.publish({
+              // Publish new message when enter is pressed.
+              channel: channel,
+              message: input.value,
+              x: (input.value = "")
+            });
+        });
+      })();
+    </script>
+    <script src="src/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- Clippy.js -->
+    <script src="src/clippy.min.js"></script>
+
+    <!-- Init script -->
+    <script type="text/javascript">
+      clippy.load("Clippy", function(agent) {
         // Do anything with the loaded agent
         agent.show();
         agent.animate();
         agent.speak("I bet you didn't notice me, did you?");
         agent.animate();
-    });
-</script>
+      });
+    </script>
   </body>
 </html>
