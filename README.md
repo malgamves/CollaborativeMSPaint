@@ -6,7 +6,7 @@ A Collaborative Microsoft Paint Tribute/Clone website built with PubNub + a bonu
 
 The website uses:
 
-[PubNub Presense](https://www.pubnub.com/products/presence/) To keep track of the number of "Nerdz drawing wuth you" 
+[PubNub Presense](https://www.pubnub.com/products/presence/) To keep track of the number of "Nerdz drawing with you" 
 
 [PubNub Realtime API](https://www.chartjs.org/) which powers that realtime chat and collaborative canvas i.e MS Paint. 
 
