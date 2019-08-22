@@ -1,4 +1,35 @@
-var mspaint = {
+const pubnub = PUBNUB.init({
+  publish_key: 'ENTER_YOUR_PUBLISH_KEY_HERE',
+  subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
+});
+
+const box = document.getElementById("box");
+
+function chat() {
+  const input = document.getElementById("input"),
+    channel = "chat";
+  pubnub.subscribe({
+    channel: [channel],
+    callback: publishMessages
+  }); // Subscribe to a channel.
+
+  input.addEventListener("keypress", function(e) {
+    (e.keyCode || e.charCode) === 13 &&
+      pubnub.publish({
+        // Publish new message when enter is pressed.
+        channel: channel,
+        message: input.value,
+        x: (input.value = "")
+      });
+  });
+}
+
+function publishMessages(message) {
+  box.innerHTML =
+    ("" + message).replace(/[<>]/g, "") + "<br> <hr>" + box.innerHTML;
+}
+
+const mspaint = {
   sketchSelector: "",
   paintSelector: "",
   paintContext: null,
@@ -8,17 +39,11 @@ var mspaint = {
     this.sketchSelector = selector1;
     this.paintSelector = selector2;
 
-    var canvas = document.querySelector(this.paintSelector);
+    let canvas = document.querySelector(this.paintSelector);
     this.canvas = canvas;
     this.paintContext = canvas.getContext("2d");
 
-    var channel = "draw";
-
-    var pubnub = PUBNUB.init({
-		publish_key: 'ENTER_YOUR_PUBLISH_KEY_HERE',
-        subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
-      	ssl: document.location.protocol === "https:"
-    });
+    let channel = "draw";
 
     pubnub.subscribe({
       channel: channel,
@@ -30,15 +55,15 @@ var mspaint = {
       }
     });
 
-    var plots = [];
-    var sketch = document.querySelector(this.sketchSelector);
-    var sketch_style = getComputedStyle(sketch);
+    let plots = [];
+    let sketch = document.querySelector(this.sketchSelector);
+    let sketch_style = getComputedStyle(sketch);
     canvas.width = parseInt(sketch_style.getPropertyValue("width"));
     canvas.height = parseInt(sketch_style.getPropertyValue("height"));
 
     this.currentIcon = document.getElementById("current");
 
-    var mouse = {
+    let mouse = {
       x: 0,
       y: 0,
       getX: function() {
@@ -56,7 +81,7 @@ var mspaint = {
     this.setColor("black");
 
     /* Mouse Capturing Work */
-    var machine = this;
+    let machine = this;
     canvas.addEventListener(
       "mousemove",
       function(e) {
@@ -106,21 +131,18 @@ var mspaint = {
       false
     );
 
-    var onPaint = function() {
+    let onPaint = function() {
       machine.paintContext.lineTo(mouse.getX(), mouse.getY());
       machine.paintContext.stroke();
 
       plots.push({ x: mouse.getX(), y: mouse.getY() });
-      //console.log(plots)
     };
 
     function drawOnCanvas(plots) {
-      //ctx.strokeStyle = color;
       machine.paintContext.beginPath();
-      //console.log(plots);
       machine.paintContext.moveTo(plots[0].x, plots[0].y);
 
-      for (var i = 1; i < plots.length; i++) {
+      for (let i = 1; i < plots.length; i++) {
         machine.paintContext.lineTo(plots[i].x, plots[i].y);
       }
       machine.paintContext.stroke();
@@ -132,8 +154,8 @@ var mspaint = {
     }
 
     /* Color changing */
-    var colorButtons = document.getElementsByClassName("color");
-    for (var index = 0; index < colorButtons.length; index++) {
+    let colorButtons = document.getElementsByClassName("color");
+    for (let index = 0; index < colorButtons.length; index++) {
       colorButtons[index].addEventListener("click", function() {
         machine.setColor(this.getAttribute("data-color"));
       });
@@ -155,7 +177,7 @@ var mspaint = {
 };
 
 window.download = function() {
-  var dt = mspaint.canvas.toDataURL();
+  let dt = mspaint.canvas.toDataURL();
   dt = dt.replace(
     /^data:image\/[^;]/,
     "data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=art.png"
@@ -165,4 +187,31 @@ window.download = function() {
 
 window.onload = function() {
   mspaint.start("#sketch", "#paint");
+  chat();
+};
+
+// Get the modal
+let modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+let btn = document.getElementById("openModal");
+
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 };
