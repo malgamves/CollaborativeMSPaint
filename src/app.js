@@ -1,33 +1,11 @@
-const pubnub = PUBNUB.init({
-  publish_key: 'ENTER_YOUR_PUBLISH_KEY_HERE',
-  subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
+const pubnub = new PubNub({
+  publishKey: 'ENTER_YOUR_PUBLISH_KEY_HERE',
+  subscribeKey: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
 });
 
-const box = document.getElementById("box");
-
-function chat() {
-  const input = document.getElementById("input"),
-    channel = "chat";
-  pubnub.subscribe({
-    channel: [channel],
-    callback: publishMessages
-  }); // Subscribe to a channel.
-
-  input.addEventListener("keypress", function(e) {
-    (e.keyCode || e.charCode) === 13 &&
-      pubnub.publish({
-        // Publish new message when enter is pressed.
-        channel: channel,
-        message: input.value,
-        x: (input.value = "")
-      });
-  });
-}
-
-function publishMessages(message) {
-  box.innerHTML =
-    ("" + message).replace(/[<>]/g, "") + "<br> <hr>" + box.innerHTML;
-}
+let drawChannel = "draw";
+let chatChannel = "chat";
+/* Drawing Section */
 
 const mspaint = {
   sketchSelector: "",
@@ -43,16 +21,28 @@ const mspaint = {
     this.canvas = canvas;
     this.paintContext = canvas.getContext("2d");
 
-    let channel = "draw";
+    
 
-    pubnub.subscribe({
-      channel: channel,
-      callback: drawFromStream,
-      presence: function(m) {
-        if (m.occupancy > 0) {
-          document.getElementById("users").textContent = m.occupancy;
+
+    pubnub.addListener({
+      message: function(response) {
+        if(response.channel === 'draw'){
+          drawFromStream(response.message);
+        }
+        if(response.channel === 'chat'){
+          publishMessages(response.message);
+        }
+      },
+      presence: function(presenceEvent) {
+        console.log(presenceEvent)
+        if (presenceEvent.occupancy > 0) {
+          document.getElementById("users").textContent = presenceEvent.occupancy;
         }
       }
+    })
+
+    pubnub.subscribe({
+      channels: [drawChannel, chatChannel],
     });
 
     let plots = [];
@@ -120,7 +110,7 @@ const mspaint = {
       function() {
         canvas.removeEventListener("mousemove", onPaint, false);
         pubnub.publish({
-          channel: channel,
+          channel: drawChannel,
           message: {
             plots: plots
           }
@@ -176,6 +166,31 @@ const mspaint = {
   }
 };
 
+/* Chat Section*/
+
+const box = document.getElementById("box");
+
+function chat() {
+  const input = document.getElementById("input"); 
+
+  input.addEventListener("keypress", function(e) {
+    (e.keyCode || e.charCode) === 13 &&
+      pubnub.publish({
+        // Publish new message when enter is pressed.
+        channel: chatChannel,
+        message: input.value,
+        x: (input.value = "")
+      });
+  });
+}
+
+function publishMessages(message) {
+  box.innerHTML =
+    ("" + message).replace(/[<>]/g, "") + "<br> <hr>" + box.innerHTML;
+}
+
+/* Init Section */
+
 window.download = function() {
   let dt = mspaint.canvas.toDataURL();
   dt = dt.replace(
@@ -189,6 +204,8 @@ window.onload = function() {
   mspaint.start("#sketch", "#paint");
   chat();
 };
+
+/* Modal Section */
 
 // Get the modal
 let modal = document.getElementById("myModal");
