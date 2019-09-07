@@ -1,10 +1,12 @@
-const pubnub = new PubNub({
-  publishKey: 'ENTER_YOUR_PUBLISH_KEY_HERE',
-  subscribeKey: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
+const pubnub = PUBNUB.init({
+  publish_key: 'ENTER_YOUR_PUBLISH_KEY_HERE',
+  subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
 });
 
 let drawChannel = "draw";
 let chatChannel = "chat";
+
+//let occupancy = 0;
 /* Drawing Section */
 
 const mspaint = {
@@ -21,28 +23,29 @@ const mspaint = {
     this.canvas = canvas;
     this.paintContext = canvas.getContext("2d");
 
-    
-
-
     pubnub.addListener({
       message: function(response) {
-        if(response.channel === 'draw'){
+        if (response.channel === "draw") {
           drawFromStream(response.message);
         }
-        if(response.channel === 'chat'){
+        if (response.channel === "chat") {
           publishMessages(response.message);
         }
       },
       presence: function(presenceEvent) {
-        console.log(presenceEvent)
-        if (presenceEvent.occupancy > 0) {
-          document.getElementById("users").textContent = presenceEvent.occupancy;
+        if (presenceEvent.action === "join") {
+          addClient(presenceEvent);
+        }
+
+        if (presenceEvent.action === "timeout") {
+          removeClient(presenceEvent);
         }
       }
-    })
+    });
 
     pubnub.subscribe({
       channels: [drawChannel, chatChannel],
+      withPresence: true
     });
 
     let plots = [];
@@ -171,7 +174,7 @@ const mspaint = {
 const box = document.getElementById("box");
 
 function chat() {
-  const input = document.getElementById("input"); 
+  const input = document.getElementById("input");
 
   input.addEventListener("keypress", function(e) {
     (e.keyCode || e.charCode) === 13 &&
@@ -189,6 +192,13 @@ function publishMessages(message) {
     ("" + message).replace(/[<>]/g, "") + "<br> <hr>" + box.innerHTML;
 }
 
+function removeClient(response) {
+  document.getElementById("users").textContent = response.occupancy;
+}
+
+function addClient(response) {
+  document.getElementById("users").textContent = response.occupancy;
+}
 /* Init Section */
 
 window.download = function() {
