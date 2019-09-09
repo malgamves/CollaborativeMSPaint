@@ -1,6 +1,6 @@
-const pubnub = PUBNUB.init({
-  publish_key: 'ENTER_YOUR_PUBLISH_KEY_HERE',
-  subscribe_key: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
+const pubnub = new PubNub({
+  publishKey: 'ENTER_YOUR_PUBLISH_KEY_HERE',
+  subscribeKey: 'ENTER_YOUR_SUBSCRIBE_KEY_HERE'
 });
 
 let drawChannel = "draw";
