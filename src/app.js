@@ -6,7 +6,6 @@ const pubnub = new PubNub({
 let drawChannel = "draw";
 let chatChannel = "chat";
 
-//let occupancy = 0;
 /* Drawing Section */
 
 const mspaint = {
