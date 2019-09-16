@@ -5,6 +5,7 @@ const pubnub = new PubNub({
 
 let drawChannel = "draw";
 let chatChannel = "chat";
+let colorChannel = "color";
 
 /* Drawing Section */
 
@@ -22,6 +23,8 @@ const mspaint = {
     this.canvas = canvas;
     this.paintContext = canvas.getContext("2d");
 
+    let universalColor = "";
+
     pubnub.addListener({
       message: function(response) {
         if (response.channel === "draw") {
@@ -29,6 +32,9 @@ const mspaint = {
         }
         if (response.channel === "chat") {
           publishMessages(response.message);
+        }
+        if (response.channel === "color") {
+          universalColor = response.message.color;
         }
       },
       presence: function(presenceEvent) {
@@ -43,7 +49,7 @@ const mspaint = {
     });
 
     pubnub.subscribe({
-      channels: [drawChannel, chatChannel],
+      channels: [drawChannel, chatChannel, colorChannel],
       withPresence: true
     });
 
@@ -130,19 +136,20 @@ const mspaint = {
       plots.push({ x: mouse.getX(), y: mouse.getY() });
     };
 
-    function drawOnCanvas(plots) {
+    function drawOnCanvas(plots,color) {
       machine.paintContext.beginPath();
       machine.paintContext.moveTo(plots[0].x, plots[0].y);
 
       for (let i = 1; i < plots.length; i++) {
         machine.paintContext.lineTo(plots[i].x, plots[i].y);
       }
+      machine.paintContext.strokeStyle = "#" + color;
       machine.paintContext.stroke();
     }
 
     function drawFromStream(message) {
       if (!message || message.plots.length < 1) return;
-      drawOnCanvas(message.plots);
+      drawOnCanvas(message.plots, universalColor);
     }
 
     /* Color changing */
@@ -150,6 +157,14 @@ const mspaint = {
     for (let index = 0; index < colorButtons.length; index++) {
       colorButtons[index].addEventListener("click", function() {
         machine.setColor(this.getAttribute("data-color"));
+        
+        //Publish color to channel
+        pubnub.publish({
+          channel: colorChannel,
+          message: {
+            color: this.getAttribute("data-color")
+          }
+        });
       });
     }
   },
@@ -190,6 +205,7 @@ function publishMessages(message) {
   box.innerHTML =
     ("" + message).replace(/[<>]/g, "") + "<br> <hr>" + box.innerHTML;
 }
+
 
 function removeClient(response) {
   document.getElementById("users").textContent = response.occupancy;
